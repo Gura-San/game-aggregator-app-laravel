@@ -25,6 +25,7 @@ class MostAnticipated extends Component
                                [
                                    'body' => "
                     fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary;
+                    where platforms = (48,49,130,6) & (first_release_date >={$current} & first_release_date < {$afterFourMonth});
                     sort popularity desc;
                     limit 4;
                 ",

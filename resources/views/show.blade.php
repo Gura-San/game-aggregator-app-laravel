@@ -4,29 +4,21 @@
 <div class="container mx-auto px-4">
     <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
         <div class="flex-none">
-            <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="{{ $game['name'] }} cover">
+            <img src="{{ $game['coverImageUrl'] }}" alt="{{ $game['name'] }} cover">
         </div>
         <div class="lg:ml-12 lg:mr-64 ">
             <h2 class="font-semibold text-4xl leading-tight mt-1 ">{{ $game['name'] }}</h2>
             <div class="text-gray-400">
                 <span>
-                @foreach($game['genres'] as $genre)
-                    {{ $genre['name'] }},
-                @endforeach
+                    {{ $game['genres'] }}
+                </span>
+                    &middot;
+            <span>
+                    {{ $game['companies'] }}
                 </span>
                     &middot;
                 <span>
-                    {{ $game['involved_companies'][0]['company']['name'] }}
-                </span>
-                    &middot;
-                <span>
-                @if(array_key_exists('platforms', $game))
-                    @foreach($game['platforms'] as $platform)
-                        @if(array_key_exists('abbreviation', $platform))
-                            {{ $platform['abbreviation'] }},
-                        @endif
-                    @endforeach
-                @endif
+                    {{ $game['platforms'] }},
                 </span>
             </div>
 
@@ -34,11 +26,7 @@
                 <div class="flex items-center">
                     <div class="w-16 h-16 bg-gray-800 rounded-full">
                         <div class="font-semibold text-xs flex justify-center items-center h-full">
-                        @if(array_key_exists('rating', $game))
-                            {{ round($game['rating']).'%' }}
-                        @else
-                            N/A
-                        @endif
+                            {{ $game['memberRating'] }}
                         </div>
                     </div>
                     <div class="ml-4 text-xs">Members<br>Score</div>
@@ -46,11 +34,7 @@
                 <div class="flex items-center ml-12">
                     <div class="w-16 h-16 bg-gray-800 rounded-full">
                         <div class="font-semibold text-xs flex justify-center items-center h-full">
-                        @if(array_key_exists('aggregated_rating', $game))
-                            {{ round($game['aggregated_rating']).'%' }}
-                        @else
-                            N/A
-                        @endif
+                            {{ $game['criticRating'] }}
                         </div>
                     </div>
                     <div class="ml-4 text-xs">Critic<br>Score</div>
@@ -86,7 +70,7 @@
                     </svg>
                     <span class="ml-2">Play Trailer</span>
                 </button>--}}
-                @if(array_key_exists('video', $game))
+                @if(isset($game['video']))
                 <a href="https://youtube.com/watch/{{ $game['videos'][0]['video_id'] }}" target="_blank" class="inline-flex bg-blue-500 text-white font-semibold px-4 py-4 hover:bg-blue-800 rounded transition ease-in-out duration-150">
                     <svg class="w-6 fill-current" viewBox="0 0 142 142">
                         <path d="M142 69A71 71 0 100 74a71 71 0 00142-5zm-30 41a56 56 0 01-43 17 56 56 0 1143-17z"/>
@@ -118,7 +102,7 @@
             @foreach($game['similar_games'] as $similar_game)
             <div class="game mt-8">
                 <div class="relative inline-block">
-                    @if(array_key_exists('cover', $similar_game))
+                    @if(isset($similar_game['cover']))
                     {{--<a href="{{ route('games.show', $similar_game['slug']) }}">
                         <img src="{{ Str::replaceFirst('thumb', 'cover_big', $similar_game['cover']['url']) }}" alt="{{ $similar_game['name'] }} cover"
                              class="hover:opacity-75 transition ease-in-out duration-150">
@@ -137,13 +121,7 @@
                     {{ $similar_game['name'] }}
                 </a>
                 <div class="text-gray-400 mt-1">
-                @if(array_key_exists('platforms', $similar_game))
-                    @foreach($game['platforms'] as $platform)
-                        @if(array_key_exists('abbreviation', $platform))
-                            {{ $platform['abbreviation'] }},
-                        @endif
-                    @endforeach
-                @endif
+
                 </div>
             </div>
             @endforeach

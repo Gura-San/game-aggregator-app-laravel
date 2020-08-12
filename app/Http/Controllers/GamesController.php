@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class GamesController extends Controller
 {
@@ -106,12 +107,24 @@ class GamesController extends Controller
                         ",
                     ]
                 )->get('https://api-v3.igdb.com/games/')->json();
-        dump($game);
 
         abort_if(!$game, 404);
-        return view('show', [
-            'game' => $game[0],
+    return view('show', [
+            'game'      => $this->formatGameForView($game[0]),
         ]);
+    }
+
+    private function formatGameForView($game) {
+        $temp = collect($game)->merge([
+            'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
+            'genres'        => collect($game['genres'])->pluck('name')->implode(', '),
+            'companies'     => $game['involved_companies'][0]['company']['name'],
+            'platforms'     => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
+            'memberRating'  => isset($game['rating']) ? round($game['rating']).'%' : '0%',
+            'criticRating'  => isset($game['aggregated_rating']) ? round($game['aggregated_rating']).'%' : '0%',
+        ]);
+
+        return $temp;
     }
 
     /**

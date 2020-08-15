@@ -115,7 +115,7 @@ class GamesController extends Controller
     }
 
     private function formatGameForView($game) {
-        return collect($game)->merge([
+        $temp = collect($game)->merge([
             'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
             'genres'        => collect($game['genres'])->pluck('name')->implode(', '),
             'companies'     => $game['involved_companies'][0]['company']['name'],
@@ -153,6 +153,9 @@ class GamesController extends Controller
                 })->first(),
             ],
         ]);
+
+        dump($temp);
+        return $temp;
     }
 
     /**

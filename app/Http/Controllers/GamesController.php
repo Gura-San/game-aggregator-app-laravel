@@ -109,13 +109,14 @@ class GamesController extends Controller
                 )->get('https://api-v3.igdb.com/games/')->json();
 
         abort_if(!$game, 404);
-    return view('show', [
+
+        return view('show', [
             'game'      => $this->formatGameForView($game[0]),
         ]);
     }
 
     private function formatGameForView($game) {
-        $temp = collect($game)->merge([
+        return collect($game)->merge([
             'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
             'genres'        => collect($game['genres'])->pluck('name')->implode(', '),
             'companies'     => $game['involved_companies'][0]['company']['name'],
@@ -153,9 +154,6 @@ class GamesController extends Controller
                 })->first(),
             ],
         ]);
-
-        dump($temp);
-        return $temp;
     }
 
     /**

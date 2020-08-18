@@ -113,16 +113,8 @@
     </div> {{-- end game details --}}
 
     <div class="images-container border-b border-gray-800 pb-12 mt-8">
-        <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Screenshots</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-8">
-        @foreach($game['screenshots'] as $screenshot)
-        <div>
-            <a href="{{ $screenshot['huge'] }}">
-                <img src="{{ $screenshot['big'] }}" alt="screenshot" class="hover:opacity-75 transition ease-in-out duration-150">
-            </a>
-        </div>
-        @endforeach
-        </div>
+        <h2 class="text-blue-500 uppercase tracking-wide font-semibold mb-8">Screenshots</h2>
+        <x-image-slider :screenshots="$game['screenshots']" />
     </div> {{-- end images container --}}
 
     <div class="similar-games-container border-gray-800 pb-12 mt-8">

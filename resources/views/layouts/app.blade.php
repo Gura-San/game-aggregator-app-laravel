@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Video Games</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <livewire:styles>
+    <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <livewire:styles />
 </head>
 <body class="bg-gray-900 text-white">
     <header class="border-b border-gray-800">
@@ -47,6 +48,7 @@
             Powered by <a href="#" class="underline hover:text-gray-400">AGDB API</a>
         </div>
     </footer>
-<livewire:scripts>
+<livewire:scripts />
+<script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>

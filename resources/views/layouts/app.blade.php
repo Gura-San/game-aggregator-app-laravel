@@ -48,7 +48,8 @@
             Powered by <a href="#" class="underline hover:text-gray-400">AGDB API</a>
         </div>
     </footer>
-<livewire:scripts />
-<script src="{{ asset('/js/app.js') }}"></script>
+    <livewire:scripts />
+    <script src="{{ asset('/js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

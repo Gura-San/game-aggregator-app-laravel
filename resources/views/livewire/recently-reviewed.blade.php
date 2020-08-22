@@ -7,14 +7,9 @@
                          class="w-48 hover:opacity-75 transition ease-in-out duration-150"
                          alt="game cover for {{ $review['name'] }}">
                 </a>
-                @if (isset($review['rating']))
-                    <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full"
-                         style="right:-20px;bottom:-20px;">
-                        <div class="font-semibold text-xs flex justify-center items-center h-full">
-                            {{ $review['rating'] }}
-                        </div>
-                    </div>
-                @endif
+                <div id="review_{{ $review['slug'] }}" class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full text-xs"
+                     style="right:-20px;bottom:-20px;">
+                </div>
             </div>
             <div class="ml-12">
                 <a href="{{ route('games.show', $review['slug']) }}" class="block text-lg font-semibold leading-tight hover:text-gray-400 mt-4">
@@ -47,3 +42,9 @@
         @endforeach
     @endforelse
 </div>
+
+@push('scripts')
+    @include('partials._rating', [
+	    'event' => 'reviewGameWithRatingAdded'
+    ])
+@endpush

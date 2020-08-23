@@ -100,13 +100,6 @@
             </p>
 
             <div class="mt-12">
-{{--                    <button class="flex bg-blue-500 text-white font-semibold px-4 py-4 hover:bg-blue-800 rounded transition ease-in-out duration-150">
-                    <svg class="w-6 fill-current" viewBox="0 0 142 142">
-                        <path d="M142 69A71 71 0 100 74a71 71 0 00142-5zm-30 41a56 56 0 01-43 17 56 56 0 1143-17z"/>
-                        <path d="M95 67L63 44c-3-2-8 0-8 5v45c0 4 5 6 8 4l32-23c2-2 2-6 0-8z"/>
-                    </svg>
-                    <span class="ml-2">Play Trailer</span>
-                </button>--}}
                 @if(isset($game['gameTrailer']))
                 <a href="{{ $game['gameTrailer'] }}" target="_blank" class="inline-flex bg-blue-500 text-white font-semibold px-4 py-4 hover:bg-blue-800 rounded transition ease-in-out duration-150">
                     <svg class="w-6 fill-current" viewBox="0 0 142 142">
@@ -123,6 +116,9 @@
     <div class="images-container border-b border-gray-800 pb-12 mt-8">
         <h2 class="text-blue-500 uppercase tracking-wide font-semibold mb-8">Screenshots</h2>
         <x-image-slider :screenshots="$game['screenshots']" />
+        @push('scripts')
+            @include('partials._swiper')
+        @endpush
     </div> {{-- end images container --}}
 
     <div class="similar-games-container border-gray-800 pb-12 mt-8">
